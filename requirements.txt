@@ -1,3 +1,4 @@
 Django
 xhtml2pdf
 python-dotenv
+gunicorn
