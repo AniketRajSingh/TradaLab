@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link href="{% static 'assets/css/home.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block body %}
+
+<!-- Hero Section -->
+<section class="hero bg-black text-white py-5">
+    <div class="container text-center">
+        <img class="logo" src="https://ci6.googleusercontent.com/proxy/DWadMv9IxJaU6KsRPGKkfRL-LJn9kK_jbBCz7KpxesQtfK3m0uR-FAL_a0mwgVgAw2rNn9xkn8mHCaYeI0ZwbQAnmsOSI_Z0IE8ldxecyFjVDWBdRNvXai4rOtbi6MmwC_uN4CGHJlLIsPlzkcM9cPnMQCOF3P4x-SJ8gTcce2oA52vr9zL_gTo-7vab95sh39pOMbSYdwtEib0866BwuL0Lmf8JR0lOvKcnH1aDJ67pwOhPtE4W3jtQ18wmpQ=s0-d-e1-ft#https://061b7bab21568a.imgdist.com/public/users/Integrators/BeeProAgency/1023231_1008186/imported/62b98a-20230716-185210/2_Screenshot%202023-07-16%20at%207.45.21%20PM.png"
+            alt="Logo">
+        <p>Your gateway to cutting-edge technology and innovation.</p>
+        <!-- Add a call-to-action button here -->
+        <a href="#" class="btn btn-light btn-lg">Explore Courses</a>
+    </div>
+</section>
+
+<!-- Images Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static 'img/image1.jpg' %}" alt="Image 1" class="img-fluid">
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'img/image2.jpg' %}" alt="Image 2" class="img-fluid">
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'img/image3.jpg' %}" alt="Image 3" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What We Provide Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">What We Provide</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Advanced Courses</h4>
+                        <p class="card-text">Explore our wide range of advanced tech courses taught by industry experts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Hands-on Projects</h4>
+                        <p class="card-text">Get hands-on experience through real-world projects that sharpen your
+                            skills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Industry Internships</h4>
+                        <p class="card-text">We provide exciting internship opportunities to kickstart your tech career.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Internship Opportunities Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Internship Opportunities</h2>
+        <p class="text-center">We offer internships in various tech domains to help you gain practical experience and
+            insights into the industry.</p>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Web Development Intern</h4>
+                        <p class="card-text">Join our team as a web development intern and work on exciting projects.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Data Science Intern</h4>
+                        <p class="card-text">Explore the world of data science and analyze real-world datasets.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Mobile App Development Intern</h4>
+                        <p class="card-text">Become a part of our mobile app development team and create innovative apps.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center><a href="#" class="btn btn-dark btn-lg m-5">Apply Now</a></center>
+    </div>
+</section>
+
+<!-- User Account Registration Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Create Your Account</h2>
+        <form class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="inputFirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="inputFirstName" name="firstName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputLastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="inputLastName" name="lastName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputUsername" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="inputUsername" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-dark">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+{% endblock body %}
