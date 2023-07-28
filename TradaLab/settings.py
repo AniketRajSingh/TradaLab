@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'TradaLab.urls'
@@ -139,6 +140,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # The list of directories
 
 # The directory where Django will collect static files during deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 # Default primary key field type
