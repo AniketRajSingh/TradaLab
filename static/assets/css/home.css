@@ -18,7 +18,7 @@
 
 #register{
 
-  color: #6A1B9A;
+  color: black;
 }
 
 .tab input {
@@ -49,7 +49,7 @@
 }
 
 .btn-int {
-    background-color: #6A1B9A;
+    background-color: black;
     color: #ffffff;
     border: none;
     border-radius: 50%;
@@ -93,7 +93,7 @@
     justify-content: center;
     align-items: center;
     font-size: 15px;
-    color: #6a1b9a;
+    color: black;
     opacity: 0.5;
 }
 
@@ -104,7 +104,7 @@
 
 .step.finish {
    color: #fff;
-   background: #6a1b9a;
+   background: black;
    opacity: 1;
 
 }
@@ -123,3 +123,128 @@
     display: none
 }
   
+* Hero Section */
+.hero {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 50px 0;
+}
+
+/* Hero Section - Button */
+.hero .btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.hero .btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Images Section */
+.py-5 {
+    padding: 50px 0;
+}
+
+/* What We Provide Section */
+.what-we-provide {
+    padding: 50px 0;
+}
+
+.what-we-provide h2 {
+    margin-bottom: 30px;
+    color: #000;
+}
+
+/* What We Provide Cards */
+.card {
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    border-radius: 10px;
+}
+
+/* Internship Opportunities Section */
+.py-5.bg-light {
+    padding: 50px 0;
+}
+
+.bg-light h2 {
+    color: #000;
+    margin-bottom: 30px;
+}
+
+/* Apply Now Button */
+.py-5 .btn-dark {
+    background-color: #000;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.py-5 .btn-dark:hover {
+    background-color: #333;
+}
+/* Testimonial Section */
+.testimonials {
+    background-color: #101010!important;
+    padding: 80px 0;
+}
+
+.testimonials .testimonial-card {
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    height: 100%;
+}
+
+.testimonials .testimonial-card .card-body {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonials .testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.testimonials .testimonial-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    flex-grow: 1; 
+}
+
+.testimonials .testimonial-author {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+}
