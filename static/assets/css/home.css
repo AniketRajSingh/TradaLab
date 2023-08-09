@@ -11,7 +11,6 @@
 #regForm {
     background-color: #ffffff;
     margin: 0px auto;
-    font-family: Raleway;
     padding: 40px;
     border-radius: 10px
 }
@@ -30,7 +29,15 @@
     border-radius: 10px;
     -webkit-appearance: none;
 }
-
+.tab select {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+    -webkit-appearance: none;
+}
 
 
 .tab input:focus{
@@ -83,7 +90,7 @@
 }
 
 .step {
-       height: 40px;
+    height: 40px;
     width: 40px;
     margin: 0 2px;
     background-color: #bbbbbb;
@@ -204,13 +211,9 @@
     background-color: #333;
 }
 /* Testimonial Section */
-.testimonials {
-    background-color: #101010!important;
-    padding: 80px 0;
-}
 
 .testimonials .testimonial-card {
-    background-color: #333;
+    background-color:  #101010!important;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     height: 100%;
@@ -233,7 +236,6 @@
 }
 
 .testimonials .testimonial-text {
-    font-size: 18px;
     line-height: 1.6;
     color: #fff;
     text-align: center;

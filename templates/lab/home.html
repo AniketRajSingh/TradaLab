@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link href="{% static 'assets/css/lab.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block body %}
+
+<!-- Heading -->
+<section style="background-color: #101010!important;" class="hero bg-black text-white py-2">
+    <div class="container text-center">
+        <p style="font-size:70px;font-weight:bold;">Virtual Labs</p>
+    </div>
+</section>
+
+<!-- Our Virtual Labs Section -->
+<section class="what-we-provide py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Our Virtual Labs</h2>
+        <hr>
+        <h4>Class 10th</h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Physics</h4>
+                        <a href="{% url 'lab_page' standard='tenth' subject='physics' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1843/1843630.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">Explore our wide range of advanced tech courses taught by industry experts.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Chemistry</h4>
+                        <a href="{% url 'lab_page' standard='tenth' subject='chemistry' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/921/921815.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">Get hands-on experience through real-world projects that sharpen your skills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Maths</h4>
+                        <a href="{% url 'lab_page' standard='tenth' subject='maths' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3300/3300757.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">We provide exciting internship opportunities to kickstart your tech career.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4>Class 12th</h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Physics</h4>
+                        <a href="{% url 'lab_page' standard='twelfth' subject='physics' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/10588/10588108.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">Explore our wide range of advanced tech courses taught by industry experts.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Chemistry</h4>
+                        <a href="{% url 'lab_page' standard='twelfth' subject='chemistry' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/10588/10588287.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">Get hands-on experience through real-world projects that sharpen your skills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Maths</h4>
+                        <a href="{% url 'lab_page' standard='twelfth' subject='maths' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/10588/10588250.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">We provide exciting internship opportunities to kickstart your tech career.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4>Engineering</h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Electronics</h4>
+                        <a href="{% url 'lab_page' standard='engineering' subject='electronics' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1177/1177787.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">Explore our wide range of advanced tech courses taught by industry experts.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Mechanical</h4>
+                        <a href="{% url 'lab_page' standard='engineering' subject='mechanical' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1177/1177783.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">Get hands-on experience through real-world projects that sharpen your skills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">Civil</h4>
+                        <a href="{% url 'lab_page' standard='engineering' subject='civil' %}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1177/1177790.png" alt="Image 3" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">We provide exciting internship opportunities to kickstart your tech career.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
+
+{% block javascript %}
+
+{% endblock javascript %}

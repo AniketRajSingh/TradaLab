@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'emails',
-    'offer_letter'
+    'offer_letter',
+    'lab',
 ]
 
 MIDDLEWARE = [

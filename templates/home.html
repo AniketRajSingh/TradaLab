@@ -72,25 +72,25 @@
 </section>
 
 <!-- Internship Opportunities Section -->
-<section class="bg-light py-5">
+<section id="intern-opportunities" class="bg-light py-5">
     <div class="container">
         <h2 class="text-center mb-4">Internship Opportunities</h2>
         <p class="text-center">We offer internships in various tech domains to help you gain practical experience and insights into the industry.</p>
         <div class="row mt-5">
             <div class="col-md-6 offset-md-3 text-center">
                 <!-- Add a call-to-action button to apply for internships -->
-                <a href="#" class="btn btn-dark btn-lg">Apply Now</a>
+                <a class="btn btn-dark btn-lg" onclick="showApplyForm()">Apply Now</a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Internship Opportunities Section -->
-<section class="intern-form container mt-5">
+<section id="applynow" class="intern-form container mt-5 visually-hidden">
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-md-8">
             <form id="regForm">
-                <h1 class="text-center" id="register">Want to be an intern with us.</h1>
+                <h2 class="text-center" id="register">Fill the form below for the internship selection process.</h2>
                 <div class="all-steps" id="all-steps"> 
                   <span class="step"><i class="fa fa-user"></i></span> 
                   <span class="step"><i class="fa fa-mortar-board"></i></span>
@@ -116,9 +116,8 @@
                         <option value="ml">Machine Learning</option>
                         <!-- Add more options as needed -->
                     </select>
+                    <p><!-- Spacing --></p>
                 </div>
-                
-                
                 
                 <div class="tab">
                     <h6>Please provide your Email Address</h6>
@@ -154,7 +153,7 @@
 </section>
 
 <!-- Testimonials Section -->
-<section style="background-color: #101010!important;" class="testimonials bg-dark text-white py-5">
+<section class="testimonials bg-white text-black py-5">
     <div class="container">
         <h2 class="text-center mb-4">What Our Interns Say</h2>
         <div class="row">
@@ -192,6 +191,12 @@
 {% endblock body %}
 
 {% block javascript %}
+<script>
+function showApplyForm() {
+  document.getElementById("applynow").classList.remove("visually-hidden");
+  document.getElementById("intern-opportunities").classList.add("visually-hidden");
+}
+</script>
 <script>
     var currentTab = 0;
               document.addEventListener("DOMContentLoaded", function(event) {

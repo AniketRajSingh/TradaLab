@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link href="{% static 'assets/css/lab.css' %}" rel="stylesheet">
+<link href="{% static experiment.experiment_css_url %}" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock styles %}
+
+{% block body %}
+
+<!-- Heading -->
+<section style="background-color: #101010!important;" class="hero bg-black text-white py-2">
+    <div class="container text-center">
+        <p style="font-size:70px;font-weight:bold;">{{ experiment.experiment }} Lab</p>
+    </div>
+</section>
+
+<!-- Our {{context.subject|capfirst}} Labs Section -->
+{% include experiment.experiment_url %}
+
+{% endblock body %}
+
+{% block javascript %}
+{% endblock javascript %}

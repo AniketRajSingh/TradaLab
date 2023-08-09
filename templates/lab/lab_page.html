@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link href="{% static 'assets/css/lab.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block body %}
+
+<!-- Heading -->
+<section style="background-color: #101010!important;" class="hero bg-black text-white py-2">
+    <div class="container text-center">
+        <p style="font-size:70px;font-weight:bold;">{{context.subject|capfirst}} Labs</p>
+    </div>
+</section>
+
+<!-- Our {{context.subject|capfirst}} Labs Section -->
+<section class="what-we-provide py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Class {{context.standard}} {{context.subject|capfirst}} Labs</h2>
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+            aria-controls="staticBackdrop">
+            Sort
+        </button>
+
+        <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+            aria-labelledby="staticBackdropLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="staticBackdropLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    I will not close if you click outside of me.
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4>Class {{context.standard}}</h4>
+        <hr>
+        <div class="row">
+            {% for experiment in experiments %}
+            {% if experiment.standard == context.standard and experiment.subject == context.subject %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-3">{{ experiment.experiment }}</h4>
+                        <a href="{% url 'lab_experiment_detail' experiment.standard experiment.subject experiment.id %}">
+                            <img src="{{ experiment.image_url }}" alt="experiment-image" class="img-fluid lab-cards">
+                        </a>
+                        <p class="card-text">{{ experiment.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
+
+{% block javascript %}
+
+{% endblock javascript %}

@@ -1,0 +1,34 @@
+/* Cards are Here */
+.card {
+    border: none;
+    background-color: transparent;
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.lab-cards{
+    padding: 60px;
+}
+.card img {
+    border-radius: 10px;
+}
+
+/* SideBar CSS is here */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    height: 100%;
+}
+#content {
+    transition: all 0.3s;
+}
+#sidebarCollapse {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    cursor: pointer;
+}

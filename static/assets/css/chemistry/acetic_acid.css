@@ -1,0 +1,220 @@
+.experiment-environment{
+    width: 100%;
+    height: 600px;
+    border-radius: 13px;
+    border: #cccccc solid 1px;
+    padding: 50px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    opacity: 0.8;
+    background-image: radial-gradient(#000000 1px, #f2f5ff66 1px);
+    background-size: 20px 20px;
+}
+.experiment-environment:hover{
+    box-shadow: #999 0px 0px 10px 0px;
+    border: none;
+}
+.testtube-container{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    align-items: center;
+    color: #0E75F0;
+    font-weight: bold;
+}
+.Item-container{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    align-items: center;
+    color: #0E75F0;
+    font-weight: bold;
+}
+.litmus-paper{
+    width: 300px;
+    height: 200px;
+    background-color:#0E75F0;
+    right: 250px;
+    position: absolute;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    font-weight: bold;
+    animation: fade-in 1s linear;
+
+}
+#observation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  #observation-table th,
+  #observation-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  #observation-table th {
+    background-color: #f2f2f2;
+  }
+  
+  #observation-table tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+@keyframes fade-in {
+    from {
+        opacity: 0; /* Start with 0 opacity (fully transparent) */
+    }
+    to {
+        opacity: 1; /* End with 1 opacity (fully opaque) */
+    }
+}
+.experiment-panel{
+    width: 100%;
+    border-radius: 13px;
+    border: #cccccc 1px solid;
+    padding: 80px;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+.experiment-panel:hover{
+    box-shadow: #999 0px 0px 10px 0px;
+    border:none;
+}
+#lab-watermark{
+    color: rgba(21, 108, 214, 0.7);
+    font-size:80px;
+    left:40%;
+    position: absolute;
+}
+.left-area{
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    
+}
+
+.material-box{
+    background-color: white;
+    height: 250px;
+    padding: 10px;
+    border: #999 solid;
+    margin: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+
+}
+.drop-box{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: end;
+}
+.image-holder{
+    margin-left: 250px;
+    height: 350px;
+    margin-bottom: 50px;
+}
+.image-holder-smoke{
+    position: absolute;
+    left: 650px;
+    margin-bottom: 350px;
+}
+.smell-btn,.shake-btn{
+    background-color: white;
+    border-radius: 15px;
+    border: #999 solid 1px;
+    padding: 10px;
+    padding-inline: 20px;
+}
+.smell-btn:hover,.shake-btn:hover{
+    border: none;
+    box-shadow: #999 0 0 10px 0;
+    font-weight: bold;
+}
+.popup {
+    position: fixed;
+    top: 25%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+}
+
+.close-btn {
+    margin-top: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.card-deck{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.experiment-card{
+    border: #999 solid 1px;
+    border-radius: 8px;
+}
+.experiment-card:hover{
+    border: none;
+    box-shadow: #999 0 0 5px 0;
+}
+.selected{
+    border: none;
+    box-shadow: #999 0 0 5px 0;
+}
+.experiment-environment-container {
+    display: none;
+}
+
+.experiment-environment-container[data-selected-experiment="1"],
+.experiment-environment-container[data-selected-experiment="2"],
+.experiment-environment-container[data-selected-experiment="3"],
+.experiment-environment-container[data-selected-experiment="4"] {
+    display: block;
+}
+
+.shake-animation {
+    animation: shake 0.5s ease-in-out;
+  }
+
+@keyframes shake {
+    0% {
+      transform: translate(0);
+    }
+    25% {
+      transform: translate(-5px, 5px);
+    }
+    50% {
+      transform: translate(5px, -5px);
+    }
+    75% {
+      transform: translate(-5px, 5px);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
