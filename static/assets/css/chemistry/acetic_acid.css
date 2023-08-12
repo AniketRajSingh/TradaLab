@@ -33,12 +33,10 @@
     color: #0E75F0;
     font-weight: bold;
 }
-.litmus-paper{
-    width: 300px;
-    height: 200px;
+.litmus{
+    width: 300px!important;
+    height: 200px!important;
     background-color:#0E75F0;
-    right: 250px;
-    position: absolute;
     border-radius: 8px;
     color: white;
     display: flex;
@@ -47,6 +45,7 @@
     font-size: larger;
     font-weight: bold;
     animation: fade-in 1s linear;
+    margin-left: 30px;
 
 }
 #observation-table {
@@ -133,14 +132,14 @@
     left: 650px;
     margin-bottom: 350px;
 }
-.smell-btn,.shake-btn{
+.smell-btn,.shake-btn,.reset-btn{
     background-color: white;
     border-radius: 15px;
     border: #999 solid 1px;
     padding: 10px;
     padding-inline: 20px;
 }
-.smell-btn:hover,.shake-btn:hover{
+.smell-btn:hover,.shake-btn:hover,.reset-btn:hover{
     border: none;
     box-shadow: #999 0 0 10px 0;
     font-weight: bold;
@@ -218,3 +217,25 @@
       transform: translate(0);
     }
   }
+  .dropper {
+    height: 200px;
+}
+
+.testtube3 {
+    margin-inline: 100px;
+}
+
+.litmus {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    transition: background-color 0.8s;
+}
+
+.acid {
+    background-color: red !important;
+}
+
+.base {
+    background-color: blue !important;
+}

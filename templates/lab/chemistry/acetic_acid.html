@@ -177,13 +177,34 @@
                     <button class="shake-btn">Shake Test</button>
                 </div>
             </div>
+            <div class="experiment-environment-container" data-selected-experiment="3" style="display: none;">
+                <div class="experiment-panel p-5">
+                    <h4 class="mb-4">Procedure for Experiment 3:</h4>
+                    <ol>
+                        <li>Drag and release test tube onto the Experiment Area.</li>
+                        <li>Drag and release Ethanoic Acid onto the Test Tube.</li>
+                        <li>Press smell button to observe the smell that is released by the acid.</li>
+                    </ol>
+                </div>
+                <h3 id="lab-watermark">LAB AREA</h3>
+                <div class="experiment-environment">
+                    <img class="dropper" src="https://i.ibb.co/c1GV9h1/dropper.png" draggable="true">
+                    <div class="testtube3" draggable="false">
+                        <img class="testtubeimg" style="height:200px ;"
+                            src="https://cdn-icons-png.flaticon.com/512/8586/8586447.png" alt="testtube"
+                            draggable="false">
+                    </div>
+                    <div class="litmus"> Litmus Paper</div>
+                    <button style="margin-left: 100px;" class="reset-btn">Reset</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
+
         // Variables for id names
         var testTubeId = 'testtube';
         var ethanoicAcidId = 'ethanoic-acid';
@@ -198,221 +219,221 @@
         var smellButtonClass = '.smell-btn';
 
 
-      // Function to show the selected experiment environment
-      function showSelectedExperiment(selectedExperiment) {
-        const experimentEnvironments = document.querySelectorAll(experimentEnvironmentClass);
-        experimentEnvironments.forEach((environment) => {
-          if (environment.dataset.selectedExperiment === selectedExperiment) {
-            environment.style.display = 'block';
-          } else {
-            environment.style.display = 'none';
-          }
-        });
-      }
-  
-      // Function to handle the click event on experiment cards
-      function handleCardClick(card) {
-        // Remove the "selected" class from all cards
+        // Function to show the selected experiment environment
+        function showSelectedExperiment(selectedExperiment) {
+            const experimentEnvironments = document.querySelectorAll(experimentEnvironmentClass);
+            experimentEnvironments.forEach((environment) => {
+                if (environment.dataset.selectedExperiment === selectedExperiment) {
+                    environment.style.display = 'block';
+                } else {
+                    environment.style.display = 'none';
+                }
+            });
+        }
+
+        // Function to handle the click event on experiment cards
+        function handleCardClick(card) {
+            // Remove the "selected" class from all cards
+            const experimentCards = document.querySelectorAll(experimentCardClass);
+            experimentCards.forEach((card) => {
+                card.classList.remove('selected');
+            });
+
+            // Add the "selected" class to the clicked card
+            card.classList.add('selected');
+
+            // Get the selected experiment from the data attribute
+            const selectedExperiment = card.dataset.experiment;
+
+            // Show the selected experiment environment
+            showSelectedExperiment(selectedExperiment);
+        }
+
+        // Function to handle dragstart event for test tube
+        function handleTestTubeDragStart(event) {
+            // Set the data being dragged (in this case, the ID of the item and the image URL)
+            event.dataTransfer.setData('text/plain', JSON.stringify({
+                itemId: testTubeId,
+                imageUrl: 'https://cdn-icons-png.flaticon.com/512/8586/8586401.png'
+            }));
+            isTestTubeDragged = true; // Set the flag to true when the test tube is dragged
+            isEthanoicAcidDragged = false;
+        }
+
+        // Function to handle dragstart event for ethanoic acid
+        function handleEthanoicAcidDragStart(event) {
+            // Prevent dragging the ethanoic acid when the test tube is not dragged
+            if (!isTestTubeDragged) {
+                event.preventDefault();
+            } else {
+                // Set the data being dragged (in this case, the ID of the item and the image URL)
+                event.dataTransfer.setData('text/plain', JSON.stringify({
+                    itemId: ethanoicAcidId,
+                    imageUrl: 'https://cdn-icons-png.flaticon.com/512/8586/8586447.png'
+                }));
+                isEthanoicAcidDragged = true; // Set the flag to true when ethanoic acid is dragged
+                document.querySelector(smellButtonClass).removeAttribute('disabled');
+            }
+        }
+
+        // Function to handle dragstart event for water
+        function handleWaterDragStart(event) {
+            // Prevent dragging water when the test tube is not dragged
+            if (!isTestTubeDragged) {
+                event.preventDefault();
+            } else {
+                // Set the data being dragged (in this case, the ID of the item and the image URL)
+                event.dataTransfer.setData('text/plain', JSON.stringify({
+                    itemId: waterId,
+                    imageUrl: 'https://cdn-icons-png.flaticon.com/512/723/723523.png'
+                }));
+                document.querySelector(smellButtonClass).removeAttribute('disabled');
+            }
+        }
+
+        // Function to handle dragover event for the image holder
+        function handleImageHolderDragOver(event) {
+            // Prevent default behavior to allow drop
+            event.preventDefault();
+        }
+
+        // Function to handle drop event for the image holder
+        function handleImageHolderDrop(event) {
+            // Prevent default behavior to avoid opening the dropped element as a URL
+            event.preventDefault();
+
+            // Get the data of the dragged item
+            const draggedData = JSON.parse(event.dataTransfer.getData('text'));
+
+            // Check if the dragged item is test tube
+            if (draggedData.itemId === testTubeId) {
+                // Remove any existing image elements from the image holder
+                while (imageHolder.firstChild) {
+                    imageHolder.removeChild(imageHolder.firstChild);
+                }
+                while (imageHolderSmoke.firstChild) {
+                    imageHolderSmoke.removeChild(imageHolderSmoke.firstChild);
+                }
+
+                // Create an image element and set the image source to the dragged item's image URL
+                const imageElement = document.createElement('img');
+                imageElement.src = draggedData.imageUrl;
+                imageElement.style.height = '100%'; // Adjust image size to fill the image-holder
+
+                // Append the new image element to the image holder
+                imageHolder.appendChild(imageElement);
+            }
+        }
+
+        // Function to handle drop event for the image holder with ethanoic acid and water
+        function handleImageHolderWithEthanoicAcidWaterDrop(event) {
+            // Prevent default behavior to avoid opening the dropped element as a URL
+            event.preventDefault();
+
+            // Get the data of the dragged item
+            const draggedData = JSON.parse(event.dataTransfer.getData('text'));
+
+            // Check if the dragged item is water or ethanoic acid
+            if (draggedData.itemId === waterId || draggedData.itemId === ethanoicAcidId) {
+                // Remove any existing image elements from the image holder
+                while (imageHolder.firstChild) {
+                    imageHolder.removeChild(imageHolder.firstChild);
+                }
+
+                // Create an image element and set the image source to the dragged item's image URL
+                const imageElement = document.createElement('img');
+                imageElement.src = draggedData.imageUrl;
+                imageElement.style.height = '100%'; // Adjust image size to fill the image-holder
+
+                // Append the new image element to the image holder
+                imageHolder.appendChild(imageElement);
+
+                // If ethanoic acid is dropped, also add the smoke image
+                if (draggedData.itemId === ethanoicAcidId) {
+                    const imageElementSmoke = document.createElement('img');
+                    imageElementSmoke.src = 'https://i.giphy.com/media/SSPyzPAmc8IpzW31zm/giphy.webp';
+                    imageElementSmoke.style.height = '200px'; // Adjust image size to fill the image-holder
+
+                    // Append the new smoke image element to the smoke image holder
+                    imageHolderSmoke.appendChild(imageElementSmoke);
+                }
+            }
+        }
+
+        // Function to show a custom popup with the provided message
+        function showPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            popup.textContent = message;
+
+            const closeButton = document.createElement('button');
+            closeButton.className = 'close-btn';
+            closeButton.textContent = 'X';
+
+            closeButton.addEventListener('click', function () {
+                // Close the popup when the "Close" button is clicked
+                document.body.removeChild(popup);
+            });
+
+            popup.appendChild(closeButton);
+            document.body.appendChild(popup);
+        }
+
+        // Get all the experiment cards
         const experimentCards = document.querySelectorAll(experimentCardClass);
+
+        // Add click event listeners to the experiment cards
         experimentCards.forEach((card) => {
-          card.classList.remove('selected');
+            card.addEventListener('click', function () {
+                handleCardClick(card);
+            });
         });
-  
-        // Add the "selected" class to the clicked card
-        card.classList.add('selected');
-  
-        // Get the selected experiment from the data attribute
-        const selectedExperiment = card.dataset.experiment;
-  
-        // Show the selected experiment environment
-        showSelectedExperiment(selectedExperiment);
-      }
-  
-      // Function to handle dragstart event for test tube
-      function handleTestTubeDragStart(event) {
-        // Set the data being dragged (in this case, the ID of the item and the image URL)
-        event.dataTransfer.setData('text/plain', JSON.stringify({
-          itemId: testTubeId,
-          imageUrl: 'https://cdn-icons-png.flaticon.com/512/8586/8586401.png'
-        }));
-        isTestTubeDragged = true; // Set the flag to true when the test tube is dragged
-        isEthanoicAcidDragged = false;
-      }
-  
-      // Function to handle dragstart event for ethanoic acid
-      function handleEthanoicAcidDragStart(event) {
-        // Prevent dragging the ethanoic acid when the test tube is not dragged
-        if (!isTestTubeDragged) {
-          event.preventDefault();
-        } else {
-          // Set the data being dragged (in this case, the ID of the item and the image URL)
-          event.dataTransfer.setData('text/plain', JSON.stringify({
-            itemId: ethanoicAcidId,
-            imageUrl: 'https://cdn-icons-png.flaticon.com/512/8586/8586447.png'
-          }));
-          isEthanoicAcidDragged = true; // Set the flag to true when ethanoic acid is dragged
-          document.querySelector(smellButtonClass).removeAttribute('disabled');
-        }
-      }
-  
-      // Function to handle dragstart event for water
-      function handleWaterDragStart(event) {
-        // Prevent dragging water when the test tube is not dragged
-        if (!isTestTubeDragged) {
-          event.preventDefault();
-        } else {
-          // Set the data being dragged (in this case, the ID of the item and the image URL)
-          event.dataTransfer.setData('text/plain', JSON.stringify({
-            itemId: waterId,
-            imageUrl: 'https://cdn-icons-png.flaticon.com/512/723/723523.png'
-          }));
-          document.querySelector(smellButtonClass).removeAttribute('disabled');
-        }
-      }
-  
-      // Function to handle dragover event for the image holder
-      function handleImageHolderDragOver(event) {
-        // Prevent default behavior to allow drop
-        event.preventDefault();
-      }
-  
-      // Function to handle drop event for the image holder
-      function handleImageHolderDrop(event) {
-        // Prevent default behavior to avoid opening the dropped element as a URL
-        event.preventDefault();
-  
-        // Get the data of the dragged item
-        const draggedData = JSON.parse(event.dataTransfer.getData('text'));
-  
-        // Check if the dragged item is test tube
-        if (draggedData.itemId === testTubeId) {
-          // Remove any existing image elements from the image holder
-          while (imageHolder.firstChild) {
-            imageHolder.removeChild(imageHolder.firstChild);
-          }
-          while (imageHolderSmoke.firstChild) {
-            imageHolderSmoke.removeChild(imageHolderSmoke.firstChild);
-          }
-  
-          // Create an image element and set the image source to the dragged item's image URL
-          const imageElement = document.createElement('img');
-          imageElement.src = draggedData.imageUrl;
-          imageElement.style.height = '100%'; // Adjust image size to fill the image-holder
-  
-          // Append the new image element to the image holder
-          imageHolder.appendChild(imageElement);
-        }
-      }
-  
-      // Function to handle drop event for the image holder with ethanoic acid and water
-      function handleImageHolderWithEthanoicAcidWaterDrop(event) {
-        // Prevent default behavior to avoid opening the dropped element as a URL
-        event.preventDefault();
-  
-        // Get the data of the dragged item
-        const draggedData = JSON.parse(event.dataTransfer.getData('text'));
-  
-        // Check if the dragged item is water or ethanoic acid
-        if (draggedData.itemId === waterId || draggedData.itemId === ethanoicAcidId) {
-          // Remove any existing image elements from the image holder
-          while (imageHolder.firstChild) {
-            imageHolder.removeChild(imageHolder.firstChild);
-          }
-  
-          // Create an image element and set the image source to the dragged item's image URL
-          const imageElement = document.createElement('img');
-          imageElement.src = draggedData.imageUrl;
-          imageElement.style.height = '100%'; // Adjust image size to fill the image-holder
-  
-          // Append the new image element to the image holder
-          imageHolder.appendChild(imageElement);
-  
-          // If ethanoic acid is dropped, also add the smoke image
-          if (draggedData.itemId === ethanoicAcidId) {
-            const imageElementSmoke = document.createElement('img');
-            imageElementSmoke.src = 'https://i.giphy.com/media/SSPyzPAmc8IpzW31zm/giphy.webp';
-            imageElementSmoke.style.height = '200px'; // Adjust image size to fill the image-holder
-  
-            // Append the new smoke image element to the smoke image holder
-            imageHolderSmoke.appendChild(imageElementSmoke);
-          }
-        }
-      }
-  
-      // Function to show a custom popup with the provided message
-      function showPopup(message) {
-        const popup = document.createElement('div');
-        popup.className = 'popup';
-        popup.textContent = message;
-  
-        const closeButton = document.createElement('button');
-        closeButton.className = 'close-btn';
-        closeButton.textContent = 'X';
-  
-        closeButton.addEventListener('click', function () {
-          // Close the popup when the "Close" button is clicked
-          document.body.removeChild(popup);
+
+        // Get the image holder
+        const dropbox = document.querySelector(dropBoxClass);
+        const imageHolder = document.querySelector(imageHolderClass);
+        const imageHolderSmoke = document.querySelector(imageHolderSmokeClass);
+
+        // Get the items to be dragged
+        const testTube = document.getElementById(testTubeId);
+        const ethanoicAcid = document.getElementById(ethanoicAcidId);
+        const water = document.getElementById(waterId);
+
+        let isTestTubeDragged = false; // Flag to track if test tube is dragged
+        let isEthanoicAcidDragged = false; // Flag to track if ethanoic acid is dragged
+
+        // Add dragstart event listener to the test tube
+        testTube.addEventListener('dragstart', handleTestTubeDragStart);
+
+        // Add dragstart event listener to ethanoic acid
+        ethanoicAcid.addEventListener('dragstart', handleEthanoicAcidDragStart);
+
+        // Add dragstart event listener to water
+        water.addEventListener('dragstart', handleWaterDragStart);
+
+        // Add dragover event listener to the image holder
+        dropbox.addEventListener('dragover', handleImageHolderDragOver);
+
+        // Add drop event listener to the image holder
+        dropbox.addEventListener('drop', handleImageHolderDrop);
+
+        // Add drop event listener to the image holder
+        imageHolder.addEventListener('drop', handleImageHolderWithEthanoicAcidWaterDrop);
+
+        // Get the "Smell" button
+        const smellButton = document.querySelector(smellButtonClass);
+
+        // Add click event listener to the "Smell" button
+        smellButton.addEventListener('click', function () {
+            // Show the custom popup with the appropriate message based on the flags
+            if (isEthanoicAcidDragged) {
+                showPopup('Pungent/ Vinegar Like Smell is coming');
+            } else {
+                showPopup('No smell');
+            }
         });
-  
-        popup.appendChild(closeButton);
-        document.body.appendChild(popup);
-      }
-  
-      // Get all the experiment cards
-      const experimentCards = document.querySelectorAll(experimentCardClass);
-  
-      // Add click event listeners to the experiment cards
-      experimentCards.forEach((card) => {
-        card.addEventListener('click', function () {
-          handleCardClick(card);
-        });
-      });
-  
-      // Get the image holder
-      const dropbox = document.querySelector(dropBoxClass);
-      const imageHolder = document.querySelector(imageHolderClass);
-      const imageHolderSmoke = document.querySelector(imageHolderSmokeClass);
-  
-      // Get the items to be dragged
-      const testTube = document.getElementById(testTubeId);
-      const ethanoicAcid = document.getElementById(ethanoicAcidId);
-      const water = document.getElementById(waterId);
-  
-      let isTestTubeDragged = false; // Flag to track if test tube is dragged
-      let isEthanoicAcidDragged = false; // Flag to track if ethanoic acid is dragged
-  
-      // Add dragstart event listener to the test tube
-      testTube.addEventListener('dragstart', handleTestTubeDragStart);
-  
-      // Add dragstart event listener to ethanoic acid
-      ethanoicAcid.addEventListener('dragstart', handleEthanoicAcidDragStart);
-  
-      // Add dragstart event listener to water
-      water.addEventListener('dragstart', handleWaterDragStart);
-  
-      // Add dragover event listener to the image holder
-      dropbox.addEventListener('dragover', handleImageHolderDragOver);
-  
-      // Add drop event listener to the image holder
-      dropbox.addEventListener('drop', handleImageHolderDrop);
-  
-      // Add drop event listener to the image holder
-      imageHolder.addEventListener('drop', handleImageHolderWithEthanoicAcidWaterDrop);
-  
-      // Get the "Smell" button
-      const smellButton = document.querySelector(smellButtonClass);
-  
-      // Add click event listener to the "Smell" button
-      smellButton.addEventListener('click', function () {
-        // Show the custom popup with the appropriate message based on the flags
-        if (isEthanoicAcidDragged) {
-          showPopup('Pungent/ Vinegar Like Smell is coming');
-        } else {
-          showPopup('No smell');
-        }
-      });
     });
-  </script>
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -649,5 +670,75 @@
             }
         });
 
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        let isDropperFilled = false;
+        let experimentOver = false;
+        
+
+        $('.dropper').on('dragstart', function (event) {
+            event.originalEvent.dataTransfer.setData('text/plain', 'dropper');
+        });
+
+        $('.testtube3').on('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        $('.dropper').on('drop', function (event) {
+            event.preventDefault();
+
+            if (isDropperFilled) {
+                $('.dropper').attr('src', 'https://i.ibb.co/c1GV9h1/dropper.png');
+                $('.litmus').removeClass('base').addClass('acid');
+                isDropperFilled = false;
+            }
+        });
+
+        $('.litmus').on('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        $('.litmus').on('drop', function (event) {
+            event.preventDefault();
+
+            if (!isDropperFilled) {
+                return;
+            }
+            $('.dropper').attr('src', 'https://i.ibb.co/c1GV9h1/dropper.png');
+            $('.litmus').removeClass('base').addClass('acid');
+            experimentOver = true;
+        });
+
+        $('.dropper').on('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        $('.testtube3').on('drop', function (event) {
+            event.preventDefault();
+            if (!experimentOver) {
+                if (!isDropperFilled) {
+                    $('.dropper').attr('src', 'https://i.ibb.co/smSWtdx/dropper-filled.png');
+                    $('.testtubeimg').attr('src', 'https://cdn-icons-png.flaticon.com/512/8586/8586401.png');
+                    isDropperFilled = true;
+                }
+                else {
+                    $('.dropper').attr('src', 'https://i.ibb.co/c1GV9h1/dropper.png');
+                    $('.testtubeimg').attr('src', 'https://cdn-icons-png.flaticon.com/512/8586/8586447.png');
+                    isDropperFilled = false;
+                }
+            }
+        });
+        const resetButton = document.querySelector('.reset-btn');
+        // Add click event listener to the "reset" button
+        resetButton.addEventListener('click', function () {
+            $('.dropper').attr('src', 'https://i.ibb.co/c1GV9h1/dropper.png');
+            $('.testtubeimg').attr('src', 'https://cdn-icons-png.flaticon.com/512/8586/8586447.png');
+            isDropperFilled = false;
+            experimentOver = false;
+            $('.litmus').removeClass('acid').addClass('base');
+
+        });
     });
 </script>
