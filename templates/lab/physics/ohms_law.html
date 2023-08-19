@@ -1,0 +1,195 @@
+<!-- Include CircuitJS and Chart.js libraries -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.falstad.com/circuit/circuitjs1-0.js"></script>
+
+<section class="what-we-provide py-5">
+    <div class="container">
+        <hr>
+        <h2 class="text-center mb-4">Aim : To study the dependence of potential difference (V) across a resistor on the
+            current (I) passing through it and determine its resistance. Also, plot a graph between V and I.</h2>
+        <hr>
+        <br>
+        <div class="container">
+            <div class="experiment-panel">
+                <h3>Theory:</h3>
+                <h4>Ohm’s Law</h4>
+                <p>The potential difference <em>V</em> across the metallic wire is directly proportional to the current
+                    flowing through it, provided its temperature is constant. This is known as Ohm’s law.</p>
+                <p><em>V</em> ∝ <em>I</em>.</p>
+                <p>Therefore, <em>V</em> = <em>IR</em>, where <em>R</em> is the resistance, which is constant for a
+                    given metallic wire.</p>
+
+            </div>
+
+            <div class="experiment-panel">
+                <h4>Factors Affecting Resistance</h4>
+                <p>Following are the factors affecting resistance:</p>
+                <ul>
+                    <li>The nature of the resistor.</li>
+                    <li>With an increase in length, the resistance also increases. So resistance of a wire is directly
+                        proportional to its length.</li>
+                    <li>With an increase in the cross-sectional area, the resistance decreases. So resistance is
+                        inversely proportional to the cross-sectional area of the wire.</li>
+                </ul>
+            </div>
+            <div class="experiment-panel">
+                <h4>Materials Required</h4>
+                <p>Following is the list of materials required for this experiment:</p>
+                <ul>
+                    <li>A battery</li>
+                    <li>An insulated copper wire</li>
+                    <li>A key</li>
+                    <li>An ammeter</li>
+                    <li>A voltmeter</li>
+                    <li>A rheostat</li>
+                    <li>A resistor</li>
+                    <li>A piece of sandpaper</li>
+                </ul>
+            </div>
+            <div class="experiment-panel">
+                <h4>Circuit Diagram</h4>
+                <div class="circuit-diagram">
+                    <img src="https://i.ibb.co/6DZpC9n/circuit.png" alt="Circuit Diagram">
+                </div>
+            </div>
+            <br>
+            <hr>
+            <h2>Explore a Virtual Experiment Environment for Enhanced Understanding</h2>
+            <hr>
+            <br>
+            <div class="experiment-panel">
+                <h4>Ohm's Law Simulator</h4>
+                <div class="resistance">
+                    <label for="resistance">Resistance (Ω):</label>
+                    <input type="number" id="resistance" step="0.1" value="10">
+                </div>
+                
+                <div class="voltage">
+                    <label for="voltage">Voltage (V):</label>
+                    <input type="number" id="voltage" step="0.1" min="0" max="20" value="0">
+                </div>
+
+                <div class="simulated-image-container">
+                    <img src="https://i.ibb.co/hWLNwTy/CIRCUIT-OHM-S-LAW.png" class="simulated-image" alt="Simulated Image">
+                </div>
+                
+                <div class="current">
+                    <label for="current">Current (I):</label>
+                    <input type="number" id="current" step="0.01" min="0" value="0">
+                </div>
+                
+                <button id="updateTable">Update Table</button>
+            </div>
+            <div class="experiment-panel">
+                <h4>Observation Table</h4>
+                <table id="observationTable">
+                    <tr>
+                        <th>Voltage (V)</th>
+                        <th>Current (I)</th>
+                        <th>Resistance (Ω)</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="graph-panel">
+                <h4>Dynamic Graph Representation</h4>
+                <canvas id="ohmsLawGraph"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const voltageInput = document.getElementById('voltage');
+    const currentInput = document.getElementById('current');
+    const resistanceInput = document.getElementById('resistance');
+    const updateTableButton = document.getElementById('updateTable');
+    const observationTable = document.getElementById('observationTable');
+    
+    const ohmsLawGraph = document.getElementById('ohmsLawGraph').getContext('2d');
+    
+    const chartData = {
+        labels: [], // Labels for x-axis (voltage)
+        datasets: [{
+            label: 'Voltage vs Current',
+            data: [], // Data points for y-axis (current)
+            borderColor: 'black',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            fill: true
+        }]
+    };
+    
+    const chart = new Chart(ohmsLawGraph, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'Voltage (V)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Current (I)'
+                    }
+                }
+            }
+        }
+    });
+    
+    // Update graph with data points
+    function updateGraph(voltage, current) {
+        chart.data.labels.push(voltage);
+        chart.data.datasets[0].data.push(current);
+        chart.update();
+    }
+    
+    updateTableButton.addEventListener('click', function() {
+        const voltage = parseFloat(voltageInput.value);
+        const current = parseFloat(currentInput.value);
+        const resistance = parseFloat(resistanceInput.value);
+        
+        if (!isNaN(voltage) && !isNaN(current) && !isNaN(resistance)) {
+            const newRow = observationTable.insertRow(-1);
+            const voltageCell = newRow.insertCell(0);
+            const currentCell = newRow.insertCell(1);
+            const resistanceCell = newRow.insertCell(2);
+            voltageCell.textContent = voltage.toFixed(1);
+            currentCell.textContent = current.toFixed(2);
+            resistanceCell.textContent = resistance.toFixed(1);
+            
+            const calculatedCurrent = voltage / resistance;
+            currentInput.value = calculatedCurrent.toFixed(2);
+            
+            updateGraph(voltage.toFixed(1), calculatedCurrent.toFixed(2));
+        }
+    });
+    
+    voltageInput.addEventListener('input', function() {
+        const voltage = parseFloat(voltageInput.value);
+        const resistance = parseFloat(resistanceInput.value);
+        if (!isNaN(voltage) && !isNaN(resistance) && resistance > 0) {
+            const calculatedCurrent = voltage / resistance;
+            currentInput.value = calculatedCurrent.toFixed(2);
+            updateGraph(voltage.toFixed(1), calculatedCurrent.toFixed(2));
+        }
+    });
+    
+    currentInput.addEventListener('input', function() {
+        const current = parseFloat(currentInput.value);
+        const resistance = parseFloat(resistanceInput.value);
+        if (!isNaN(current) && !isNaN(resistance) && resistance > 0) {
+            const calculatedVoltage = current * resistance;
+            voltageInput.value = calculatedVoltage.toFixed(1);
+            updateGraph(calculatedVoltage.toFixed(1), current.toFixed(2));
+        }
+    });
+});
+
+
+</script>

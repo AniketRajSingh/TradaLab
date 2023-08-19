@@ -1,0 +1,81 @@
+.experiment-panel{
+    width: 100%;
+    border-radius: 13px;
+    border: #cccccc 1px solid;
+    padding: 40px;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+.experiment-panel:hover{
+    box-shadow: #999 0px 0px 10px 0px;
+    border:none;
+}
+.circuit-diagram{
+    width: 100%;
+    text-align: center;
+}
+.simulated-image-container{
+    text-align: center;
+}
+.simulated-image{
+    width: 40%;
+    position: relative;
+    margin-top: 10px;
+}
+.voltage{
+    position: relative;
+    left: 40%;
+    width: max-content;
+}
+.current{
+    position: relative;
+    left: 600px;
+    width: max-content;
+}
+.resistance{
+    position: relative;
+    left: 40%;
+    top: 220px;
+    width: max-content;
+    z-index: 3;
+}
+#updateTable{
+    position: relative;
+    left: 85%;
+    background-color: white;
+    border-radius: 15px;
+    border: #999 solid 1px;
+    padding: 10px;
+    padding-inline: 20px;
+}
+#updateTable:hover{
+    border: #333 solid 1px;
+    box-shadow: #999 0 0 5px 0;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+#observationTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#observationTable th,
+#observationTable td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+#observationTable th {
+    background-color: #f2f2f2;
+}
+
+#observationTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#observationTable tr:hover {
+    background-color: #ddd;
+}
