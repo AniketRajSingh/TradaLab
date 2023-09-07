@@ -63,21 +63,22 @@
                     <label for="resistance">Resistance (Ω):</label>
                     <input type="number" id="resistance" step="0.1" value="10">
                 </div>
-                
+
                 <div class="voltage">
                     <label for="voltage">Voltage (V):</label>
                     <input type="number" id="voltage" step="0.1" min="0" max="20" value="0">
                 </div>
 
                 <div class="simulated-image-container">
-                    <img src="https://i.ibb.co/hWLNwTy/CIRCUIT-OHM-S-LAW.png" class="simulated-image" alt="Simulated Image">
+                    <img src="https://i.ibb.co/hWLNwTy/CIRCUIT-OHM-S-LAW.png" class="simulated-image"
+                        alt="Simulated Image">
                 </div>
-                
+
                 <div class="current">
                     <label for="current">Current (I):</label>
                     <input type="number" id="current" step="0.01" min="0" value="0">
                 </div>
-                
+
                 <button id="updateTable">Update Table</button>
             </div>
             <div class="experiment-panel">
@@ -94,102 +95,131 @@
                 <h4>Dynamic Graph Representation</h4>
                 <canvas id="ohmsLawGraph"></canvas>
             </div>
+            <div class="experiment-panel">
+                <h2 class="text-center mb-4">Conclusions</h2>
+                <ul>
+                    <li>For all the three readings, the <em>R</em>-value is the same and constant.</li>
+                    <li>The ratio of potential difference <em>V</em> and current <em>I</em> is the resistance of a
+                        resistor.
+                    </li>
+                    <li>With the help of the graph between <em>V</em> and <em>I</em>, Ohm’s law is verified as the plot
+                        is a
+                        straight line.</li>
+                </ul>
+            </div>
         </div>
+        <div class="experiment-panel">
+            <h2 class="text-center mt-5">Precautions</h2>
+            <ul>
+                <li>Thick copper wires should be used as connecting wires and using sandpaper, their insulation should
+                    be removed.</li>
+                <li>To avoid external resistance, the connections should be tight.</li>
+                <li>The connections should be as per the circuit diagram and should be approved by the teacher before
+                    conducting the experiment.</li>
+                <li>The current should enter from the positive terminal and exit from the negative terminal of the
+                    ammeter and it should be connected in series with the resistor.</li>
+                <li>Resistor and voltmeter should be connected in parallel.</li>
+                <li>The least count of ammeter and voltmeter should be recorded properly.</li>
+                <li>When there is no current flow, the pointers of ammeter and voltmeter should be at zero.</li>
+                <li>To avoid unnecessary heating in the circuit, the current should be passed for a short time.</li>
+            </ul>
+        </div>
+    </div>
     </div>
 </section>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const voltageInput = document.getElementById('voltage');
-    const currentInput = document.getElementById('current');
-    const resistanceInput = document.getElementById('resistance');
-    const updateTableButton = document.getElementById('updateTable');
-    const observationTable = document.getElementById('observationTable');
-    
-    const ohmsLawGraph = document.getElementById('ohmsLawGraph').getContext('2d');
-    
-    const chartData = {
-        labels: [], // Labels for x-axis (voltage)
-        datasets: [{
-            label: 'Voltage vs Current',
-            data: [], // Data points for y-axis (current)
-            borderColor: 'black',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)',
-            fill: true
-        }]
-    };
-    
-    const chart = new Chart(ohmsLawGraph, {
-        type: 'line',
-        data: chartData,
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    title: {
-                        display: true,
-                        text: 'Voltage (V)'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Current (I)'
+    document.addEventListener('DOMContentLoaded', function () {
+        const voltageInput = document.getElementById('voltage');
+        const currentInput = document.getElementById('current');
+        const resistanceInput = document.getElementById('resistance');
+        const updateTableButton = document.getElementById('updateTable');
+        const observationTable = document.getElementById('observationTable');
+
+        const ohmsLawGraph = document.getElementById('ohmsLawGraph').getContext('2d');
+
+        const chartData = {
+            labels: [], // Labels for x-axis (voltage)
+            datasets: [{
+                label: 'Voltage vs Current',
+                data: [], // Data points for y-axis (current)
+                borderColor: 'black',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                fill: true
+            }]
+        };
+
+        const chart = new Chart(ohmsLawGraph, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Voltage (V)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Current (I)'
+                        }
                     }
                 }
             }
+        });
+
+        // Update graph with data points
+        function updateGraph(voltage, current) {
+            chart.data.labels.push(voltage);
+            chart.data.datasets[0].data.push(current);
+            chart.update();
         }
+
+        updateTableButton.addEventListener('click', function () {
+            const voltage = parseFloat(voltageInput.value);
+            const current = parseFloat(currentInput.value);
+            const resistance = parseFloat(resistanceInput.value);
+
+            if (!isNaN(voltage) && !isNaN(current) && !isNaN(resistance)) {
+                const newRow = observationTable.insertRow(-1);
+                const voltageCell = newRow.insertCell(0);
+                const currentCell = newRow.insertCell(1);
+                const resistanceCell = newRow.insertCell(2);
+                voltageCell.textContent = voltage.toFixed(1);
+                currentCell.textContent = current.toFixed(2);
+                resistanceCell.textContent = resistance.toFixed(1);
+
+                const calculatedCurrent = voltage / resistance;
+                currentInput.value = calculatedCurrent.toFixed(2);
+
+                updateGraph(voltage.toFixed(1), calculatedCurrent.toFixed(2));
+            }
+        });
+
+        voltageInput.addEventListener('input', function () {
+            const voltage = parseFloat(voltageInput.value);
+            const resistance = parseFloat(resistanceInput.value);
+            if (!isNaN(voltage) && !isNaN(resistance) && resistance > 0) {
+                const calculatedCurrent = voltage / resistance;
+                currentInput.value = calculatedCurrent.toFixed(2);
+                updateGraph(voltage.toFixed(1), calculatedCurrent.toFixed(2));
+            }
+        });
+
+        currentInput.addEventListener('input', function () {
+            const current = parseFloat(currentInput.value);
+            const resistance = parseFloat(resistanceInput.value);
+            if (!isNaN(current) && !isNaN(resistance) && resistance > 0) {
+                const calculatedVoltage = current * resistance;
+                voltageInput.value = calculatedVoltage.toFixed(1);
+                updateGraph(calculatedVoltage.toFixed(1), current.toFixed(2));
+            }
+        });
     });
-    
-    // Update graph with data points
-    function updateGraph(voltage, current) {
-        chart.data.labels.push(voltage);
-        chart.data.datasets[0].data.push(current);
-        chart.update();
-    }
-    
-    updateTableButton.addEventListener('click', function() {
-        const voltage = parseFloat(voltageInput.value);
-        const current = parseFloat(currentInput.value);
-        const resistance = parseFloat(resistanceInput.value);
-        
-        if (!isNaN(voltage) && !isNaN(current) && !isNaN(resistance)) {
-            const newRow = observationTable.insertRow(-1);
-            const voltageCell = newRow.insertCell(0);
-            const currentCell = newRow.insertCell(1);
-            const resistanceCell = newRow.insertCell(2);
-            voltageCell.textContent = voltage.toFixed(1);
-            currentCell.textContent = current.toFixed(2);
-            resistanceCell.textContent = resistance.toFixed(1);
-            
-            const calculatedCurrent = voltage / resistance;
-            currentInput.value = calculatedCurrent.toFixed(2);
-            
-            updateGraph(voltage.toFixed(1), calculatedCurrent.toFixed(2));
-        }
-    });
-    
-    voltageInput.addEventListener('input', function() {
-        const voltage = parseFloat(voltageInput.value);
-        const resistance = parseFloat(resistanceInput.value);
-        if (!isNaN(voltage) && !isNaN(resistance) && resistance > 0) {
-            const calculatedCurrent = voltage / resistance;
-            currentInput.value = calculatedCurrent.toFixed(2);
-            updateGraph(voltage.toFixed(1), calculatedCurrent.toFixed(2));
-        }
-    });
-    
-    currentInput.addEventListener('input', function() {
-        const current = parseFloat(currentInput.value);
-        const resistance = parseFloat(resistanceInput.value);
-        if (!isNaN(current) && !isNaN(resistance) && resistance > 0) {
-            const calculatedVoltage = current * resistance;
-            voltageInput.value = calculatedVoltage.toFixed(1);
-            updateGraph(calculatedVoltage.toFixed(1), current.toFixed(2));
-        }
-    });
-});
 
 
 </script>

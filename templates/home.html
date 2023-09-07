@@ -241,7 +241,7 @@
     async function submitForm() {
         const regForm = document.getElementById('regForm');
         const formData = new FormData(regForm);
-
+    
         try {
             const response = await fetch("{% url 'apply_for_internship' %}", {
                 method: "POST",
@@ -250,17 +250,29 @@
                     "X-CSRFToken": "{{ csrf_token }}",
                 },
             });
-
-            const data = await response.json();
-            if (data.success) {
-                showThankYouMessage();
+    
+            if (response.ok) {
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    const data = await response.json();
+                    if (data.success) {
+                        showThankYouMessage();
+                    } else {
+                        // Handle error case here
+                    }
+                } else {
+                    // Handle HTML response here
+                    const htmlContent = await response.text();
+                    console.log("HTML response:", htmlContent);
+                }
             } else {
-                // Handle error case here
+                // Handle non-OK response here
             }
         } catch (error) {
             console.error("Error submitting form:", error);
         }
     }
+    
 
     // Show the thank you message and hide the form
     function showThankYouMessage() {
