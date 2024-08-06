@@ -1,0 +1,174 @@
+/* Experiment Panel Styles */
+.experiment-panel {
+    width: 100%;
+    border-radius: 13px;
+    border: #cccccc 1px solid;
+    padding: 40px;
+    margin: 10px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.experiment-panel:hover {
+    box-shadow: #999 0px 0px 10px 0px;
+    border: none;
+}
+
+/* Input Container Styles */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Input Label Styles */
+.input-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Input Field Styles */
+.input-container input,
+.input-container select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    width: 150px;
+    text-align: center;
+}
+
+/* Button Styles */
+#calculateVoltage {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 15px;
+    border: #999 solid 1px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#calculateVoltage:hover {
+    border: #333 solid 1px;
+    box-shadow: #999 0 0 5px 0;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+/* Result Display Styles */
+.experiment-result {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.experiment-result h4 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.experiment-result p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Observation Table Styles */
+#observationTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#observationTable th,
+#observationTable td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+}
+
+#observationTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#observationTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#observationTable tr:hover {
+    background-color: #ddd;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2, h3, h4 {
+    color: #333;
+}
+
+hr {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* Experiment Container Styles */
+.exp-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-container {
+    width: 35%;
+}
+
+.right-container {
+    width: 65%;
+}
+
+/* Battery Image Container Styles */
+#voltage_image {
+    background-image: url('/static/assets/elements/physics/series_batteries.png');
+    border: #333 solid 1px;
+    background-size: contain;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.value {
+    border: #333 solid 1px;
+    border-radius: 8px;
+    width: 80px;
+    padding: 8px;
+    position: absolute;
+    text-align: center;
+}
+
+/* Adjust positions for battery display */
+#value1 {
+    top: 110px;
+    left: 17%;
+}
+
+#value2 {
+    top: 110px;
+    right: 17%;
+}

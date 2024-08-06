@@ -1,0 +1,219 @@
+<section class="resistance-calculator py-5">
+    <div class="container">
+        <hr>
+        <h2 class="text-center mb-4">Resistance Calculator Using Color Codes</h2>
+        <hr>
+
+        <!-- Aim Section -->
+        <div class="calculator-panel">
+            <h3>Aim:</h3>
+            <p>To determine the resistance of a resistor based on its color code. The color bands on a resistor indicate its resistance value, tolerance, and sometimes reliability.</p>
+        </div>
+
+        <!-- Theory Section -->
+        <div class="calculator-panel">
+            <h3>Theory:</h3>
+            <p>Resistors are color-coded to indicate their resistance values. Each color represents a specific number, and the arrangement of the colors determines the resistor's value. The first two colors represent significant digits, the third color represents the multiplier, and the fourth color represents tolerance (optional).</p>
+            <p><strong>Color Code Chart:</strong></p>
+            <ul>
+                <li>Black: 0</li>
+                <li>Brown: 1</li>
+                <li>Red: 2</li>
+                <li>Orange: 3</li>
+                <li>Yellow: 4</li>
+                <li>Green: 5</li>
+                <li>Blue: 6</li>
+                <li>Violet: 7</li>
+                <li>Gray: 8</li>
+                <li>White: 9</li>
+                <li>Gold: Multiplier x0.1, Tolerance ±5%</li>
+                <li>Silver: Multiplier x0.01, Tolerance ±10%</li>
+            </ul>
+        </div>
+
+        <!-- Calculator Panel -->
+        <div class="calculator-panel">
+            <div class="exp-container">
+                <div class="left-container">
+                    <h3>Enter Color Codes:</h3>
+            <div class="color-selector">
+                <div class="color-strip" id="strip1"></div>
+                <select id="color1" class="color-select">
+                    <option value="black">Black</option>
+                    <option value="brown">Brown</option>
+                    <option value="red">Red</option>
+                    <option value="orange">Orange</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="violet">Violet</option>
+                    <option value="gray">Gray</option>
+                    <option value="white">White</option>
+                </select>
+            </div>
+            <div class="color-selector">
+                <div class="color-strip" id="strip2"></div>
+                <select id="color2" class="color-select">
+                    <option value="black">Black</option>
+                    <option value="brown">Brown</option>
+                    <option value="red">Red</option>
+                    <option value="orange">Orange</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="violet">Violet</option>
+                    <option value="gray">Gray</option>
+                    <option value="white">White</option>
+                </select>
+            </div>
+            <div class="color-selector">
+                <div class="color-strip" id="strip3"></div>
+                <select id="color3" class="color-select">
+                    <option value="black">Black</option>
+                    <option value="brown">Brown</option>
+                    <option value="red">Red</option>
+                    <option value="orange">Orange</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="violet">Violet</option>
+                    <option value="gray">Gray</option>
+                    <option value="white">White</option>
+                </select>
+            </div>
+            <div class="color-selector">
+                <div style="background-color: gold;" class="color-strip" id="strip4"></div>
+                <select id="color4" class="color-select">
+                    <option value="gold">Gold</option>
+                    <option value="silver">Silver</option>
+                </select>
+            </div>
+
+            <button id="calculateResistance">Calculate Resistance</button>
+                </div>
+                <div class="right-container">
+                    <div class="resistance-model">
+                        <div style="width: 40px;"></div>
+                        <div id="resistor-strip1"></div>
+                        <div style="width: 60px;"></div>
+                        <div id="resistor-strip2"></div>
+                        <div style="width: 60px;"></div>
+                        <div id="resistor-strip3"></div>
+                        <div style="width: 110px;"></div>
+                        <div id="resistor-strip4"></div>
+                    </div>
+                    <hr style="width: 600px;border: 2px black solid;position: absolute;opacity: 1;">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h4>Calculated Resistance:</h4>
+                <p id="resistanceValue">-- Ω</p>
+                <p id="toleranceValue">-- %</p>
+            </div>
+        </div>
+
+        <!-- Observations -->
+        <div class="calculator-panel">
+            <h3>Observations:</h3>
+            <p>The resistance value should be verified by comparing it with standard resistor values. Ensure that the selected colors match the color codes on physical resistors.</p>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="calculator-panel">
+            <h3>Conclusion:</h3>
+            <p>Understanding the color code on resistors is crucial for accurate resistance measurement and circuit design. This tool helps in quickly calculating the resistance value based on color codes, facilitating practical electronics work.</p>
+        </div>
+    </div>
+</section>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const colorSelectors = document.querySelectorAll('.color-select');
+    const colorStrips = document.querySelectorAll('.color-strip');
+    const calculateButton = document.getElementById('calculateResistance');
+    const resistanceOutput = document.getElementById('resistanceValue');
+    const toleranceOutput = document.getElementById('toleranceValue');
+    const resistorStrip1 = document.getElementById('resistor-strip1');
+    const resistorStrip2 = document.getElementById('resistor-strip2');
+    const resistorStrip3 = document.getElementById('resistor-strip3');
+    const resistorStrip4 = document.getElementById('resistor-strip4');
+
+    const colorCode = {
+        black: 0,
+        brown: 1,
+        red: 2,
+        orange: 3,
+        yellow: 4,
+        green: 5,
+        blue: 6,
+        violet: 7,
+        gray: 8,
+        white: 9,
+        gold: -1, // Special case for multiplier
+        silver: -2 // Special case for multiplier
+    };
+
+    function updateColorStrips() {
+        colorSelectors.forEach((selector, index) => {
+            colorStrips[index].style.backgroundColor = selector.value;
+        });
+    }
+
+    function updateResistorStrips() {
+        const [color1, color2, color3, color4] = Array.from(colorSelectors).map(selector => selector.value);
+        
+        resistorStrip1.style.backgroundColor = color1;
+        resistorStrip2.style.backgroundColor = color2;
+        resistorStrip3.style.backgroundColor = color3;
+        resistorStrip4.style.backgroundColor = color4;
+    }
+
+    function calculateResistance() {
+        const [color1, color2, color3, color4] = Array.from(colorSelectors).map(selector => selector.value);
+        
+        let multiplier = 1;
+        let tolerance = '';
+        
+        if (color4 === 'gold' || color4 === 'silver') {
+            if (color1 === 'gold' || color1 === 'silver' || color2 === 'gold' || color2 === 'silver' || color3 === 'gold' || color3 === 'silver') {
+                alert('Gold and Silver can only be used as the fourth band.');
+                return;
+            }
+            switch(color4) {
+                case 'gold': tolerance = '±5%'; break;
+                case 'silver': tolerance = '±10%'; break;
+            }
+        }
+
+        switch(color3) {
+            case 'black': multiplier = 1; break;
+            case 'brown': multiplier = 10; break;
+            case 'red': multiplier = 100; break;
+            case 'orange': multiplier = 1000; break;
+            case 'yellow': multiplier = 10000; break;
+            case 'green': multiplier = 100000; break;
+            case 'blue': multiplier = 1000000; break;
+            case 'violet': multiplier = 10000000; break;
+            case 'gray': multiplier = 100000000; break;
+            case 'white': multiplier = 1000000000; break;
+            case 'gold': multiplier = 0.1; tolerance = '±5%'; break;
+            case 'silver': multiplier = 0.01; tolerance = '±10%'; break;
+            default: multiplier = 1;
+        }
+
+        const resistance = (colorCode[color1] * 10 + colorCode[color2]) * multiplier;
+        resistanceOutput.textContent = `${resistance} Ω`;
+        toleranceOutput.textContent = tolerance;
+    }
+
+    colorSelectors.forEach(selector => {
+        selector.addEventListener('change', function () {
+            updateColorStrips();
+            updateResistorStrips();
+            calculateResistance();
+        });
+    });
+
+    calculateButton.addEventListener('click', calculateResistance);
+});
+</script>

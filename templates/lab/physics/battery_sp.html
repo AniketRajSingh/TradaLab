@@ -1,0 +1,212 @@
+<!-- Include CircuitJS and Chart.js libraries -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.falstad.com/circuit/circuitjs1-0.js"></script>
+
+<section class="what-we-provide py-5">
+    <div class="container">
+        <hr>
+        <h2 class="text-center mb-4">Aim: Determine the Equivalent Voltage of Two Batteries in Series and Parallel.</h2>
+        <hr>
+        <br>
+        <div class="container">
+            <div class="experiment-panel">
+                <h3>Theory:</h3>
+                <p>In electrical circuits, batteries can be connected in series or parallel. The equivalent voltage depends on the configuration.</p>
+                <p><strong>Series Connection:</strong> \( V_{\text{eq}} = V_1 + V_2 \)</p>
+                <p><strong>Parallel Connection:</strong> \( V_{\text{eq}} = V_1 \) (assuming identical batteries)</p>
+            </div>
+
+            <div class="experiment-panel">
+                <h4>Materials Required</h4>
+                <ul>
+                    <li>Two batteries</li>
+                    <li>Ammeter</li>
+                    <li>Voltmeter</li>
+                    <li>Connecting wires</li>
+                    <li>Switch</li>
+                    <li>Power supply</li>
+                </ul>
+            </div>
+            <hr>
+            <h3>SIMULATION AREA</h3>
+            <hr>
+
+            <div style="text-align: start;" class="experiment-panel">
+                <h4>Interactive Circuit Simulator</h4>
+                <div class="exp-container">
+                    <div class="left-container">
+                        <div class="input-container">
+                            <label for="battery1">Battery 1 (V):</label>
+                            <input type="number" id="battery1" step="0.1" value="1.5">
+                        </div>
+                        <div class="input-container">
+                            <label for="battery2">Battery 2 (V):</label>
+                            <input type="number" id="battery2" step="0.1" value="1.5">
+                        </div>
+                        <div class="input-container">
+                            <label for="connection">Connection Type:</label>
+                            <select id="connection">
+                                <option value="series">Series</option>
+                                <option value="parallel">Parallel</option>
+                            </select>
+                        </div>
+        
+                        <button id="calculateVoltage">Calculate Equivalent Voltage</button>
+                    </div>
+                    <div class="right-container">
+                        <div id="voltage_image">
+                            <div class="value" id="value1">0</div>
+                            <div class="value" id="value2">0</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="experiment-result">
+                <h4>Equivalent Voltage:</h4>
+                <p id="equivalentVoltage">--</p>
+            </div>
+
+            <div class="experiment-panel">
+                <h4>Observation Table</h4>
+                <table id="observationTable">
+                    <tr>
+                        <th>Battery 1 (V)</th>
+                        <th>Battery 2 (V)</th>
+                        <th>Connection</th>
+                        <th>Equivalent Voltage (V)</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="experiment-panel">
+                <h4>Graph: Series vs. Parallel Equivalent Voltage</h4>
+                <canvas id="voltageComparisonChart"></canvas>
+            </div>
+
+            <div class="experiment-panel">
+                <h2 class="text-center mb-4">Conclusions</h2>
+                <ul>
+                    <li>In series connection, the equivalent voltage is the sum of the individual voltages.</li>
+                    <li>In parallel connection, the equivalent voltage is the same as the voltage of the individual batteries (assuming identical batteries).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const battery1Input = document.getElementById('battery1');
+        const battery2Input = document.getElementById('battery2');
+        const connectionSelect = document.getElementById('connection');
+        const calculateButton = document.getElementById('calculateVoltage');
+        const equivalentVoltageOutput = document.getElementById('equivalentVoltage');
+        const observationTable = document.getElementById('observationTable');
+        const backgroundContainer = document.getElementById('voltage_image');
+        const value1 = document.getElementById('value1');
+        const value2 = document.getElementById('value2');
+    
+        const seriesData = [];
+        const parallelData = [];
+        const labels = [];
+    
+        calculateButton.addEventListener('click', function () {
+            const v1 = parseFloat(battery1Input.value);
+            const v2 = parseFloat(battery2Input.value);
+            const connection = connectionSelect.value;
+            let equivalentVoltage = 0;
+    
+            if (connection === 'series') {
+                equivalentVoltage = v1 + v2;
+                value1.style.top = '110px';
+                value1.style.left = '17%';
+                value1.style.bottom = 'auto';
+                value1.style.right = 'auto';
+                value2.style.top = '110px';
+                value2.style.right = '17%';
+                value2.style.bottom = 'auto';
+                value2.style.left = 'auto';
+                backgroundContainer.style.backgroundImage = "url('/static/assets/elements/physics/series_batteries.png')";
+                seriesData.push(equivalentVoltage);
+                value1.innerText = v1;
+                value2.innerText = v2;
+            } else if (connection === 'parallel') {
+                equivalentVoltage = v1; // Assuming identical batteries
+                value1.style.top = '35px';
+                value1.style.left = '40%';
+                value1.style.bottom = 'auto';
+                value1.style.right = 'auto';
+                value2.style.bottom = '35px';
+                value2.style.right = '40%';
+                value2.style.top = 'auto';
+                value2.style.left = 'auto';
+                backgroundContainer.style.backgroundImage = "url('/static/assets/elements/physics/parallel_batteries.png')";
+                parallelData.push(equivalentVoltage);
+                value1.innerText = v1;
+                value2.innerText = v2;
+            }
+    
+            labels.push(`V1: ${v1}, V2: ${v2}`);
+            equivalentVoltageOutput.textContent = equivalentVoltage.toFixed(2);
+    
+            const newRow = observationTable.insertRow(-1);
+            newRow.insertCell(0).textContent = v1.toFixed(1);
+            newRow.insertCell(1).textContent = v2.toFixed(1);
+            newRow.insertCell(2).textContent = connection.charAt(0).toUpperCase() + connection.slice(1);
+            newRow.insertCell(3).textContent = equivalentVoltage.toFixed(2);
+    
+            updateChart();
+        });
+    
+        function updateChart() {
+            const ctx = document.getElementById('voltageComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Series Connection',
+                            data: seriesData,
+                            borderColor: 'red',
+                            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                            fill: false,
+                        },
+                        {
+                            label: 'Parallel Connection',
+                            data: parallelData,
+                            borderColor: 'blue',
+                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            fill: false,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Equivalent Voltage: Series vs. Parallel',
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Battery Voltages (V)',
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Equivalent Voltage (V)',
+                            },
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        }
+    });
+    
+</script>
